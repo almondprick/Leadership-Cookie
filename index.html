@@ -45,13 +45,21 @@
         cookie.classList.add("hidden");
         brokenContainer.classList.remove("hidden");
 
+        // Beide Hälften sofort sichtbar machen
+        left.style.opacity = "1";
+        right.style.opacity = "1";
+
+        // Starte Split Animation
         left.classList.add("cookie-left");
         right.classList.add("cookie-right");
 
-        quote.textContent = getRandomQuote();
-        quote.classList.add("show");
+        // Warte bis Animation fertig ist, dann zeige Quote und Reset
+        setTimeout(() => {
+          quote.textContent = getRandomQuote();
+          quote.classList.add("show");
+          resetButton.classList.remove("hidden");
+        }, 1000);
 
-        resetButton.classList.remove("hidden");
       }, 500);
     });
 
