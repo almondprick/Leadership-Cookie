@@ -12,26 +12,6 @@ body {
   text-align: center;
 }
 
-.cookie-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.cookie-wrapper.show {
-  opacity: 1;
-}
-
-.cookie-wrapper img {
-  width: 100px;
-  max-width: 100%;
-  height: auto;
-}
-
 #main-cookie {
   width: 200px;
   max-width: 80%;
@@ -43,16 +23,56 @@ body {
   transform: scale(1.05);
 }
 
+.cookie-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.cookie-wrapper img {
+  width: 100px;
+  max-width: 100%;
+  height: auto;
+  opacity: 0;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes split-left {
+  0% { transform: translateX(0); opacity: 0; }
+  100% { transform: translateX(-50px); opacity: 1; }
+}
+
+@keyframes split-right {
+  0% { transform: translateX(0); opacity: 0; }
+  100% { transform: translateX(50px); opacity: 1; }
+}
+
+.cookie-left {
+  animation: split-left 0.8s ease forwards;
+}
+
+.cookie-right {
+  animation: split-right 0.8s ease forwards;
+}
+
 #quote {
   font-size: 1.2rem;
   color: #333;
   max-width: 80%;
   line-height: 1.5;
   margin: 10px;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.8s;
 }
 
-.hidden {
-  display: none;
+#quote.show {
+  opacity: 1;
 }
 
 #reset {
@@ -61,13 +81,19 @@ body {
   cursor: pointer;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (max-width: 600px) {
   #main-cookie {
     width: 150px;
   }
+
   .cookie-wrapper img {
     width: 80px;
   }
+
   #quote {
     font-size: 1rem;
   }
