@@ -7,37 +7,17 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
-    <img
-      id="main-cookie"
-      src="cookie-whole.png"
-      alt="Ein geschlossener Glückskeks. Klicke, um dein Zitat zu öffnen."
-    />
+    <img id="main-cookie" src="cookie-whole.png" alt="Ein geschlossener Glückskeks. Klicke, um dein Zitat zu öffnen.">
     <div id="broken-cookie-container" class="cookie-wrapper hidden">
-      <img
-        id="cookie-left"
-        src="cookie-left.png"
-        alt="Linke Hälfte eines zerbrochenen Glückskekses"
-      />
+      <img id="cookie-left" src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses" class="half-cookie">
       <p id="quote"></p>
-      <img
-        id="cookie-right"
-        src="cookie-right.png"
-        alt="Rechte Hälfte eines zerbrochenen Glückskekses"
-      />
+      <img id="cookie-right" src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses" class="half-cookie">
     </div>
-    <img
-      id="reset"
-      class="hidden"
-      src="fresh.png"
-      alt="Seite zurücksetzen"
-    />
+    <img id="reset" class="hidden" src="fresh.png" alt="Seite zurücksetzen">
   </div>
 
   <script>
@@ -63,14 +43,13 @@
 
       setTimeout(() => {
         cookie.classList.add("hidden");
-
         brokenContainer.classList.remove("hidden");
 
-        // Split Animation Klassen hinzufügen
+        // Animation Klassen hinzufügen
         left.classList.add("cookie-left");
         right.classList.add("cookie-right");
 
-        // Quote setzen und fade-in
+        // Quote setzen
         quote.textContent = getRandomQuote();
         setTimeout(() => {
           quote.classList.add("show");
@@ -86,6 +65,3 @@
   </script>
 </body>
 </html>
-
-
-<!-- Alle Leadership-Zitate wurden ersetzt durch deine Pocket-Guide Massnahmen -->
