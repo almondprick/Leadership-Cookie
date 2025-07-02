@@ -45,11 +45,13 @@ body {
 
 @keyframes split-left {
   0% { transform: translateX(0); opacity: 0; }
+  50% { opacity: 1; }
   100% { transform: translateX(-50px); opacity: 1; }
 }
 
 @keyframes split-right {
   0% { transform: translateX(0); opacity: 0; }
+  50% { opacity: 1; }
   100% { transform: translateX(50px); opacity: 1; }
 }
 
