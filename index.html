@@ -45,15 +45,11 @@
         cookie.classList.add("hidden");
         brokenContainer.classList.remove("hidden");
 
-        // Animation Klassen hinzufügen
         left.classList.add("cookie-left");
         right.classList.add("cookie-right");
 
-        // Quote setzen
         quote.textContent = getRandomQuote();
-        setTimeout(() => {
-          quote.classList.add("show");
-        }, 800);
+        quote.classList.add("show");
 
         resetButton.classList.remove("hidden");
       }, 500);
