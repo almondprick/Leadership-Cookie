@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leadership Glückskeks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: linear-gradient(180deg, #fffbe6, #f7f1d6); display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Lato', sans-serif; }
+    .container { text-align: center; }
+    .cookie-wrapper { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px; opacity: 0; transition: opacity 0.8s ease; }
+    .cookie-wrapper.show { opacity: 1; }
+    .cookie-wrapper img { width: 100px; max-width: 100%; height: auto; }
+    #main-cookie { width: 200px; max-width: 80%; cursor: pointer; transition: transform 0.3s ease; }
+    #main-cookie:hover { transform: scale(1.05); }
+    #quote { font-size: 1.2rem; color: #333; max-width: 80%; line-height: 1.5; margin: 10px; }
+    .hidden { display: none; }
+    #reset { width: 40px; margin-top: 20px; cursor: pointer; }
+    @media (max-width: 600px) { #main-cookie { width: 150px; } .cookie-wrapper img { width: 80px; } #quote { font-size: 1rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img id="main-cookie" src="cookie-whole.png" alt="Ein geschlossener Glückskeks. Klicke, um dein Zitat zu öffnen.">
+    <div id="broken-cookie-container" class="cookie-wrapper hidden">
+      <img src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses">
+      <p id="quote"></p>
+      <img src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses">
+    </div>
+    <img id="reset" class="hidden" src="fresh.png" alt="Seite zurücksetzen">
+  </div>
+
+  <script>
+    const quotes = [
+      "Balance bedeutet nicht, alles zu schaffen – sondern zu wissen, was heute wirklich zählt",
+      "Achtsamkeit ist kein Luxus – sie ist Leadership-Kompetenz.",
+      "Führung ist die Kunst, Sicherheit zu schaffen – nicht Kontrolle.",
+      "Ein gutes Team erkennt man nicht an der Harmonie – sondern an der Offenheit für echte Gespräche.",
+      "Vertrauen wächst, wenn Fehler nicht bestraft, sondern besprochen werden.",
+      "Führung zeigt sich nicht in deiner Rolle – sondern in deiner Haltung.",
+      "Klarheit ist eine Form der Fürsorge.",
+      "Du musst nicht laut sein, um gehört zu werden – aber klar.",
+      "Führung heisst, Räume zu öffnen – nicht nur Ziele zu erreichen.",
+      "Gute Leader wissen nicht alles – aber sie lernen ständig dazu.",
+      "Zukunft entsteht durch Haltung, nicht durch Hektik.",
+      "Reflektiere dich selbst.",
+      "Halte deine Balance.",
+      "Treffe bewusste, transparente Entscheidungen.",
+      "Bleibe ruhig und lösungsorientiert.",
+      "Erkenne Entwicklungspotenzial in Problemen.",
+      "Kommuniziere extra klar & häufig in schwierigen Phasen.",
+      "Sei Vorbild für gewünschte Werte.",
+      "Fördere Teamgeist statt Egoismus.",
+      "Feiere auch kleine Fortschritte gemeinsam.",
+      "Nur wer in sich ruht, kann andere in Bewegung bringen.",
+      "Führung beginnt mit Selbstführung.",
+      "Balance ist kein Zustand – sie ist eine tägliche Entscheidung.",
+      "Entwickle eine klare Richtung.",
+      "Teile sie regelmässig und inspirierend.",
+      "Gib Sinn, nicht nur Aufgaben.",
+      "Sei verlässlich und ehrlich.",
+      "Delegiere Verantwortung.",
+      "Vertraue zuerst – dann bekommst du Vertrauen zurück.",
+      "Regelmässiger Austausch. Klar, konkret, respektvoll.",
+      "Höre offen zu – ohne Verteidigung.",
+      "Sage, was du meinst – meine, was du sagst.",
+      "Kläre Erwartungen und Rollen.",
+      "Zeige echtes Zuhören.",
+      "Fördere Entwicklung individuell.",
+      "Ermutige zum Mitdenken & Mitgestalten.",
+      "Stille ist oft der beste Ratgeber für laute Entscheidungen.",
+      "Wer sich selbst gut führt, bleibt auch in stürmischen Zeiten auf Kurs.",
+      "Vertrauen ist die Währung erfolgreicher Führung.",
+      "Gute Führung wächst nicht an der Spitze, sondern mit dem Team.",
+      "Führen heisst nicht wissen, sondern zuhören.",
+      "Ein echtes ‚Wir‘ entsteht, wenn jeder gesehen wird.",
+      "Erfolg ist kein Solo – er ist ein Zusammenspiel.",
+      "Führung ist nicht Macht, sondern Wirkung.",
+      "Klarheit in der Haltung schafft Sicherheit im Handeln.",
+      "Ein Leader inspiriert nicht durch Worte, sondern durch Präsenz.",
+      "In der Ruhe liegt die Kraft – und oft die beste Entscheidung.",
+      "Werte führen weiter als Regeln.",
+      "Gute Führung denkt weiter als bis zur Deadline.",
+      "Wer wachsen will, muss bereit sein, sich zu verändern.",
+      "Leadership bedeutet, Raum für Entwicklung zu schaffen – für andere und sich selbst.",
+      "Zukunft entsteht nicht von allein – sie wird geführt.",
+      "Starke Leader erkennen, wann sie loslassen müssen.",
+      "Nur wer mit sich selbst in Kontakt ist, kann mit anderen in Verbindung gehen.",
+      "Das Leben ist 10% das, was mit uns passiert, und 90% wie wir darauf reagieren.",
+      "In einem Jahr wirst du dir wünschen, heute angefangen zu haben.",
+      "Ich kenne den Schlüssel zum Erfolg nicht, aber der Schlüssel zum Scheitern ist, es jedem recht machen zu wollen.",
+      "Es ist nicht wichtig, wie langsam du gehst, solange du nicht stehen bleibst.",
+      "Lass die Angst vor dem Verlieren nicht grösser sein als die Freude am Gewinnen.",
+      "Man muss das Unmögliche versuchen, um das Mögliche zu erreichen.",
+      "Das Geheimnis des Vorankommens liegt darin, den ersten Schritt zu machen.",
+      "Die Zukunft hängt davon ab, was wir heute tun."
+    ];
+
+    function getRandomQuote() { return quotes[Math.floor(Math.random() * quotes.length)]; }
+
+    const cookie = document.getElementById("main-cookie");
+    const quote = document.getElementById("quote");
+    const brokenContainer = document.getElementById("broken-cookie-container");
+    const resetButton = document.getElementById("reset");
+
+    cookie.addEventListener("click", () => {
+      cookie.classList.add("hidden");
+      quote.textContent = getRandomQuote();
+      brokenContainer.classList.remove("hidden");
+      brokenContainer.classList.add("show");
+      resetButton.classList.remove("hidden");
+    });
+
+    resetButton.addEventListener("click", () => { location.reload(); });
+  </script>
+</body>
+</html>
+
+<!-- Alle Leadership-Zitate wurden ersetzt durch deine Pocket-Guide Massnahmen -->
