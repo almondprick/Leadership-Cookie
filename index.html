@@ -13,9 +13,9 @@
   <div class="container">
     <img id="main-cookie" src="cookie-whole.png" alt="Ein geschlossener Glückskeks. Klicke, um dein Zitat zu öffnen.">
     <div id="broken-cookie-container" class="cookie-wrapper hidden">
-      <img id="cookie-left" src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses" class="half-cookie">
+      <img id="cookie-left" src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses">
       <p id="quote"></p>
-      <img id="cookie-right" src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses" class="half-cookie">
+      <img id="cookie-right" src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses">
     </div>
     <img id="reset" class="hidden" src="fresh.png" alt="Seite zurücksetzen">
   </div>
@@ -39,28 +39,18 @@
     const right = document.getElementById("cookie-right");
 
     cookie.addEventListener("click", () => {
-      cookie.classList.add("fade-out");
+      cookie.classList.add("hidden");
+      brokenContainer.classList.remove("hidden");
 
-      setTimeout(() => {
-        cookie.classList.add("hidden");
-        brokenContainer.classList.remove("hidden");
+      // Sofort beide Hälften sichtbar, ohne Animation
+      left.style.opacity = "1";
+      right.style.opacity = "1";
 
-        // Beide Hälften sofort sichtbar machen
-        left.style.opacity = "1";
-        right.style.opacity = "1";
+      // Zeige Quote sofort
+      quote.textContent = getRandomQuote();
+      quote.classList.add("show");
 
-        // Starte Split Animation
-        left.classList.add("cookie-left");
-        right.classList.add("cookie-right");
-
-        // Warte bis Animation fertig ist, dann zeige Quote und Reset
-        setTimeout(() => {
-          quote.textContent = getRandomQuote();
-          quote.classList.add("show");
-          resetButton.classList.remove("hidden");
-        }, 1000);
-
-      }, 500);
+      resetButton.classList.remove("hidden");
     });
 
     resetButton.addEventListener("click", () => {
