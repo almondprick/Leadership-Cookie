@@ -4,25 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leadership Glückskeks</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
     <img id="main-cookie" src="cookie-whole.png" alt="Ein geschlossener Glückskeks. Klicke, um dein Zitat zu öffnen.">
     <div id="broken-cookie-container" class="cookie-wrapper hidden">
-      <img src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses">
+      <img id="cookie-left" src="cookie-left.png" alt="Linke Hälfte eines zerbrochenen Glückskekses">
       <p id="quote"></p>
-      <img src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses">
+      <img id="cookie-right" src="cookie-right.png" alt="Rechte Hälfte eines zerbrochenen Glückskekses">
     </div>
     <img id="reset" class="hidden" src="fresh.png" alt="Seite zurücksetzen">
   </div>
 
   <script>
     const quotes = [
-      "Balance bedeutet nicht, alles zu schaffen – sondern zu wissen, was heute wirklich zählt",
+      "Balance bedeutet nicht, alles zu schaffen – sondern zu wissen, was heute wirklich zählt.",
       "Achtsamkeit ist kein Luxus – sie ist Leadership-Kompetenz.",
       "Führung ist die Kunst, Sicherheit zu schaffen – nicht Kontrolle.",
       "Ein gutes Team erkennt man nicht an der Harmonie – sondern an der Offenheit für echte Gespräche.",
@@ -94,12 +94,21 @@
     const quote = document.getElementById("quote");
     const brokenContainer = document.getElementById("broken-cookie-container");
     const resetButton = document.getElementById("reset");
+    const left = document.getElementById("cookie-left");
+    const right = document.getElementById("cookie-right");
 
     cookie.addEventListener("click", () => {
       cookie.classList.add("hidden");
-      quote.textContent = getRandomQuote();
       brokenContainer.classList.remove("hidden");
-      brokenContainer.classList.add("show");
+
+      // Beide Hälften sofort sichtbar machen
+      left.style.opacity = "1";
+      right.style.opacity = "1";
+
+      // Zeige zufälliges Zitat sofort
+      quote.textContent = getRandomQuote();
+      quote.classList.add("show");
+
       resetButton.classList.remove("hidden");
     });
 
